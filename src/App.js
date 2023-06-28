@@ -58,6 +58,7 @@ export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+//  const query = "wretyyuio";
   const query = "breaking bad";
 
   useEffect(function () {
@@ -68,9 +69,13 @@ export default function App() {
         const res = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
         
         if (!res.ok)
-        throw new Error("Something went wrong with fetching movies");
+          throw new Error("Something went wrong with fetching movies");
         
         const data = await res.json();
+
+        if (data.Response === 'False')
+          throw new Error("Movie not found");
+
         setMovies(data.Search);
         setIsLoading(false);
       } catch(err) {
