@@ -1,4 +1,4 @@
-import { Children, useState } from "react";
+import { Children, useEffect, useState } from "react";
 
 const tempMovieData = [
   {
@@ -55,9 +55,11 @@ export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
 
-  fetch(`https://www.omdbapi.com/?apikey=a3214b72&s=breaking`)
+  useEffect(()=>{
+    fetch(`https://www.omdbapi.com/?apikey=a3214b72&s=breaking`)
     .then((res) => res.json())
-    .then((data) => console.log(data.Search))
+    .then((data) => setMovies(data.Search))
+  }, [])
 
   return (
     <>
