@@ -1,5 +1,6 @@
 import { Children, useEffect, useState } from "react";
 import StarRating from "./StarRating"
+import Navbar from "./Navbar"
 
 const tempMovieData = [
   {
@@ -74,6 +75,8 @@ export default function App() {
     setWatched((watched)=>[...watched, movie])
   }
 
+  console.log(watched);
+
   useEffect(function () {
     async function fetchMovies() {
 
@@ -147,18 +150,6 @@ export default function App() {
       </Main>
     </>
   );
-}
-
-
-function Navbar({children}){
-
-  return(
-    <div>
-    <nav className="nav-bar">
-      {children}
-    </nav>
-  </div>
-  )
 }
 
 function Loader(){
@@ -265,7 +256,7 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched}){
 
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [userRating, setUserRating] = useState('');
+  const [userRating, setUserRating] = useState(0);
 
   const {
     Title: title,
@@ -334,8 +325,14 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched}){
         </header>
         <section>
           <div className="rating">
-            <StarRating maxRating={10} size={24} onSetRating={setUserRating}/>
-            <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
+            {userRating ? 
+              <p>You rated this movie {userRating}⭐s</p>
+              :          
+              <>
+                <StarRating maxRating={10} size={24} onSetRating={setUserRating}/>
+                <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
+              </> 
+            }
           </div>  
           <p><em>{plot}</em></p>
           <p>Starring {actors}</p>
