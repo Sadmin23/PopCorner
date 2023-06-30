@@ -56,7 +56,7 @@ const average = (arr) =>
 export default function App() {
 
   const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
@@ -68,6 +68,10 @@ export default function App() {
 
   function handleCloseMovie(){
     setSelectedId(null)
+  }
+
+  function handleAddWatched(movie){
+    setWatched((watched)=>[...watched, movie])
   }
 
   useEffect(function () {
@@ -131,6 +135,7 @@ export default function App() {
           <MovieDetails 
             selectedId={selectedId}
             onCloseMovie={handleCloseMovie}
+            onAddWatched={handleAddWatched}
           /> 
           :
           <>
@@ -256,7 +261,7 @@ function Movie({movie, onSelectMovie}){
   )
 }
 
-function MovieDetails({selectedId, onCloseMovie}){
+function MovieDetails({selectedId, onCloseMovie, onAddWatched}){
 
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -273,6 +278,19 @@ function MovieDetails({selectedId, onCloseMovie}){
     Director: director,
     Genre: genre 
   } = movie
+
+  function handleAdd(){
+    const newWatchedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0))
+    }
+
+    onAddWatched(newWatchedMovie);
+  }
 
   useEffect(function(){
     async function getMoviedetails(){
@@ -313,6 +331,7 @@ function MovieDetails({selectedId, onCloseMovie}){
         <section>
           <div className="rating">
             <StarRating maxRating={10} size={24}/>
+            <button className="btn-add" onClick={handleAdd}>+ Add to list</button>
           </div>  
           <p><em>{plot}</em></p>
           <p>Starring {actors}</p>
@@ -368,8 +387,8 @@ function WatchedList({watched}){
 function WatchedMovie({movie}){
   return (
     <li>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <h3>{movie.title}</h3>
       <div>
         <p>
           <span>⭐️</span>

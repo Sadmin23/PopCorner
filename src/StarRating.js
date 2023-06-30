@@ -15,7 +15,7 @@ export default function StarRating({
     color = "#fcc419",
     size = 48,
     className = "",
-    defaultRating = 3
+    defaultRating = 0
 }){
 
     const [rating, setRating] = useState(defaultRating)
