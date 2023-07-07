@@ -33,6 +33,13 @@ $ npm start
 
 ## Features
 ### Movie Search:
+![search](https://github.com/Sadmin23/PopCorner/assets/86393032/7132e3b3-5a50-4152-8519-1b21c06bbe60)
+
 ### Movie Details:
+![details](https://github.com/Sadmin23/PopCorner/assets/86393032/31242b4a-47b1-4caa-97a2-6bccd432773c)
+
 ### Movie Ratings:
+![rate](https://github.com/Sadmin23/PopCorner/assets/86393032/368c792e-5091-4a7b-be66-4d23a8a8069d)
+
 ### Watchlist:
+![watchlist](https://github.com/Sadmin23/PopCorner/assets/86393032/ff0cf62b-4c49-4fee-80ae-ec51e225ed92)
