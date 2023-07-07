@@ -12,7 +12,7 @@ import MovieDetails from "./MovieDetails"
 import WatchedList from "./WatchedList";
 import WatchedSummary from "./WatchedSummary";
 
-const KEY = "a3214b72"
+const KEY = process.env.REACT_APP_API_KEY
 
 export default function App() {
 
